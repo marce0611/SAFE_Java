@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.FXMLDocumentController">
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" layoutY="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="887.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" stroke="TRANSPARENT" strokeType="INSIDE" width="887.0" />
+      <Label layoutX="293.0" layoutY="136.0" text="Menú de opciones">
+         <font>
+            <Font name="Calibri Light" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="723.0" layoutY="23.0" text="Bienvenido, administrador" textFill="WHITE" />
+      <Hyperlink fx:id="lblUsuarios" layoutX="226.0" layoutY="382.0" onAction="#abrirUsuarios" text="Usuarios" />
+      <Hyperlink fx:id="lblEmpresas" layoutX="606.0" layoutY="382.0" onAction="#abrirEmpresas" text="Empresas" />
+      <Hyperlink fx:id="lblTipoEvaluaciones" layoutX="380.0" layoutY="382.0" onAction="#abrirTipoEvaluaciones" text="Tipos de Evaluaciones" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/img/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="202.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/img/usuarios.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="394.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/img/tipo_evaluaciones.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="586.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/img/empresas.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="5.0" layoutY="96.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="5.0" layoutY="498.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
+      <Label layoutX="357.0" layoutY="542.0" text="SAFE - Prevención de riesgos." textFill="WHITE" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paquete.LoginController">
+    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" layoutY="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="887.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" stroke="TRANSPARENT" strokeType="INSIDE" width="887.0" />
+      <Label layoutX="419.0" layoutY="141.0" text="Login">
+         <font>
+            <Font name="Calibri Light" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/img/logo.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="5.0" layoutY="96.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="5.0" layoutY="498.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
+      <Label layoutX="357.0" layoutY="542.0" text="SAFE - Prevención de riesgos." textFill="WHITE" />
+      <Button fx:id="btnIngresar" layoutX="432.0" layoutY="412.0" mnemonicParsing="false" onAction="#ingresar" text="Ingresar" />
+      <Label layoutX="359.0" layoutY="245.0" text="Rut:" />
+      <Label layoutX="328.0" layoutY="318.0" text="Contraseña:" />
+      <TextField fx:id="txtRut" layoutX="411.0" layoutY="241.0" />
+      <TextField fx:id="txtContrasena" layoutX="411.0" layoutY="314.0" />
+    </children>
+</AnchorPane>

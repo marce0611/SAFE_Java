@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="empresa.FXMLEmpresaController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="1.0" layoutY="3.0" prefHeight="600.0" prefWidth="887.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" layoutX="-2.0" layoutY="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="889.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" layoutX="-2.0" layoutY="-10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="889.0" />
+            <Label layoutX="374.0" layoutY="132.0" text="Empresas">
+               <font>
+                  <Font name="Calibri Light" size="40.0" />
+               </font>
+            </Label>
+            <Label layoutX="723.0" layoutY="23.0" text="Bienvenido, administrador" textFill="WHITE" />
+            <Hyperlink fx:id="lblInicio" layoutX="774.0" layoutY="40.0" onAction="#inicio" text="Inicio" />
+            <Button fx:id="btnIngresar" layoutX="223.0" layoutY="217.0" mnemonicParsing="false" onAction="#ingresarEmpresa" text="Ingresar empresa" />
+            <Button fx:id="btnModificar" layoutX="395.0" layoutY="217.0" mnemonicParsing="false" onAction="#modificarEmpresa" text="Modificar empresa" />
+            <Button fx:id="btnEliminar" layoutX="571.0" layoutY="217.0" mnemonicParsing="false" onAction="#eliminarEmpresa" text="Eliminar empresa" />
+            <ImageView fitHeight="75.0" fitWidth="200.0" layoutY="3.0">
+               <image>
+                  <Image url="/img/logo.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutX="-2.0" layoutY="88.0" stroke="#ffffff00" strokeType="INSIDE" width="889.0" />
+            <Label layoutX="364.0" layoutY="542.0" text="SAFE - Prevención de riesgos." textFill="WHITE" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutX="-2.0" layoutY="497.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
+            <TableView fx:id="tableView" layoutX="21.0" layoutY="265.0" prefHeight="183.0" prefWidth="841.0">
+              <columns>
+                <TableColumn fx:id="cId" prefWidth="177.0" text="Id Usuario" />
+                <TableColumn fx:id="cNombre" prefWidth="521.0" text="Nombre Empresa" />
+                  <TableColumn fx:id="cRut" prefWidth="142.0" text="Rut Empresa" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnCargar" layoutX="410.0" layoutY="455.0" mnemonicParsing="false" onAction="#cargarDatos" text="Cargar datos" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
