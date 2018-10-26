@@ -28,7 +28,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntTipoEvaluacion;
+import org.datacontract.schemas._2004._07.backsafe.EntTipoEvaluacion;
+import org.datacontract.schemas._2004._07.backsafe.EntTipoEvaluacion;
 import paquete.Conexion;
+import static usuario.FXMLUsuariosController.retornarUsuarios;
+import usuario.Usuario;
 
 /**
  * FXML Controller class
@@ -52,6 +56,12 @@ public class FXMLTipoEvaluacionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+        for (EntTipoEvaluacion er : retornarTiposEvaluacion().getEntTipoEvaluacion()) {
+
+            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdUsuario().getValue()));
+
+        }
 
         tipoEvaluacionList.add(new TipoEvaluacion(rs.getString("id"), rs.getString("descripcion")));
 
