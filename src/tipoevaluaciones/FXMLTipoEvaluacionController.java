@@ -56,7 +56,6 @@ public class FXMLTipoEvaluacionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
         for (EntTipoEvaluacion er : retornarTiposEvaluacion().getEntTipoEvaluacion()) {
 
             tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue()));
