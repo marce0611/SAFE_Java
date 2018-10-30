@@ -59,11 +59,9 @@ public class FXMLTipoEvaluacionController implements Initializable {
 
         for (EntTipoEvaluacion er : retornarTiposEvaluacion().getEntTipoEvaluacion()) {
 
-            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdUsuario().getValue()));
+            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue()));
 
         }
-
-        tipoEvaluacionList.add(new TipoEvaluacion(rs.getString("id"), rs.getString("descripcion")));
 
         clId.setCellValueFactory(new PropertyValueFactory<>("id"));
         clDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
@@ -140,20 +138,10 @@ public class FXMLTipoEvaluacionController implements Initializable {
     private void cargarDatos(ActionEvent event) {
         table.getItems().clear();
 
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
+        for (EntTipoEvaluacion er : retornarTiposEvaluacion().getEntTipoEvaluacion()) {
 
-            ResultSet rs = con.createStatement().executeQuery("select * from tipo_evaluacion");
+            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue()));
 
-            while (rs.next()) {
-
-                tipoEvaluacionList.add(new TipoEvaluacion(rs.getString("id"), rs.getString("descripcion")));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
         }
 
         clId.setCellValueFactory(new PropertyValueFactory<>("id"));
