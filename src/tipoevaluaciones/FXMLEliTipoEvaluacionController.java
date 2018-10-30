@@ -5,6 +5,7 @@
  */
 package tipoevaluaciones;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,15 +35,13 @@ public class FXMLEliTipoEvaluacionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private TextField txtId;
 
-
     @FXML
     private Button btnCancelar;
-
 
     @FXML
     void cancelar(ActionEvent event) {
@@ -53,36 +52,34 @@ public class FXMLEliTipoEvaluacionController implements Initializable {
 
     @FXML
     void eliminarTipoEvaluacion(ActionEvent event) throws SQLException {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Ventana de confirmación");
-    alert.setHeaderText("Confirmación");
-    alert.setContentText("¿Está seguro que desea eliminar?");
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.get() == ButtonType.OK){
-        
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-            
-            String sql = "delete from tipo_evaluacion where id='"+txtId.getText()+"'";
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Ventana de confirmación");
+        alert.setHeaderText("Confirmación");
+        alert.setContentText("¿Está seguro que desea eliminar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
 
-            Statement stmn = con.createStatement();
-            stmn.executeUpdate(sql);
-
+            BigDecimal id = new BigDecimal(txtId.getText());
+            eliminarTipoEvaluacion_1(id);
 
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
             alert2.setTitle("Eliminar tipo de evaluación");
             alert2.setHeaderText("Tipo de evaluación");
             alert2.setContentText("El tipo de evaluación ha sido eliminado");
             alert2.showAndWait();
-            
+
             txtId.setText("");
 
         } else {
             alert.close();
         }
 
-    }        
+    }
+
+    private static Boolean eliminarTipoEvaluacion_1(java.math.BigDecimal idTipoeval) {
+        org.tempuri.Service1 service = new org.tempuri.Service1();
+        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        return port.eliminarTipoEvaluacion(idTipoeval);
+    }
 
 }
-
-

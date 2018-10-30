@@ -5,10 +5,9 @@
  */
 package tipoevaluaciones;
 
+import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import paquete.Conexion;
 
 /**
  * FXML Controller class
@@ -34,8 +32,8 @@ public class FXMLModTipoEvaluacionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private TextField txtId;
 
@@ -53,38 +51,39 @@ public class FXMLModTipoEvaluacionController implements Initializable {
 
     @FXML
     void modificarTipoEvaluacion(ActionEvent event) throws SQLException {
-        
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Ventana de confirmación");
-    alert.setHeaderText("Confirmación");
-    alert.setContentText("¿Está seguro que desea modificar?");
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.get() == ButtonType.OK){
-        
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-            
-            String sql = "update tipo_evaluacion set descripcion='"+txtDescripcion.getText()+"' where id='"+txtId.getText()+"'";
 
-            Statement stmn = con.createStatement();
-            stmn.executeUpdate(sql);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Ventana de confirmación");
+        alert.setHeaderText("Confirmación");
+        alert.setContentText("¿Está seguro que desea modificar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
 
+            BigDecimal id = new BigDecimal(txtId.getText());
+
+            if (modificarTipoEvaluacion_1(id, txtDescripcion.getText())) {
+                System.out.println("Tipo de evaluacion modificado");
+            };
 
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
             alert2.setTitle("Modificar tipo de evaluacion");
             alert2.setHeaderText("Tipo de evaluacion");
             alert2.setContentText("El tipo de evaluacion ha sido modificado");
             alert2.showAndWait();
-            
+
             txtId.setText("");
             txtDescripcion.setText("");
 
         } else {
             alert.close();
-        }   
-      
+        }
 
-        
     }
-    
+
+    private static Boolean modificarTipoEvaluacion_1(java.math.BigDecimal id, java.lang.String descripcion) {
+        org.tempuri.Service1 service = new org.tempuri.Service1();
+        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        return port.modificarTipoEvaluacion(id, descripcion);
+    }
+
 }

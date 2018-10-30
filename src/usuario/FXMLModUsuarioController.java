@@ -23,6 +23,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
+import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
 import paquete.Conexion;
 import static usuario.FXMLIngUsuarioController.crearUsuario;
 
@@ -87,81 +89,36 @@ public class FXMLModUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        cbContrato.setItems(contratosList);
-        cbEmpresa.setItems(empresasList);
+        //cbContrato.setItems(contratosList);
+        //cbEmpresa.setItems(empresasList);
         cbPerfil.setItems(perfilList);
+        
 
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
 
-            String sql = "select * from contrato";
+        for (EntPerfilUsuario er : retornarPerfilUsuarios().getEntPerfilUsuario()) {
 
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
+            perfilList.add(er.getIdPerfil().getValue());
 
-                contratosList.add(result.getString("id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
         }
 
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-
-            String sql = "select * from empresa";
-
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
-
-                empresasList.add(result.getString("usuario_id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
-        }
-
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-
-            String sql = "select * from perfil_usuario";
-
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
-
-                perfilList.add(result.getString("id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
-        }
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
         Stage stage2 = (Stage) btnCancelar.getScene().getWindow();
         stage2.close();
-        
+
     }
 
     @FXML
     private void modificarUsuario(ActionEvent event) {
-        
+
         BigDecimal rut = new BigDecimal(txtRut.getText());
         BigDecimal telefono = new BigDecimal(txtTelefono.getText());
         BigDecimal perfil = new BigDecimal(cbPerfil.getValue());
-        
+
         if (modificarUsuario_1(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
-            System.out.println("FUNCIONA!!!");
+            System.out.println("Usuario modificado");
         }
 
         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
@@ -169,7 +126,6 @@ public class FXMLModUsuarioController implements Initializable {
         alert2.setHeaderText("Usuario");
         alert2.setContentText("El usuario ha sido modificado");
         alert2.showAndWait();
-
 
         txtRut.clear();
         txtContrasena.clear();
@@ -190,6 +146,19 @@ public class FXMLModUsuarioController implements Initializable {
     @FXML
     private void perfilUsuario(ActionEvent event) {
         cbPerfil.setItems(perfilList);
+
+        Integer perfil = new Integer(cbPerfil.getValue());
+
+        if (perfil == 5) {
+            pMedico.setDisable(false);
+            pTrabajador.setDisable(true);
+        } else if (perfil == 6) {
+            pMedico.setDisable(true);
+            pTrabajador.setDisable(false);
+        } else {
+            pMedico.setDisable(true);
+            pTrabajador.setDisable(true);
+        }
     }
 
     @FXML
@@ -204,6 +173,12 @@ public class FXMLModUsuarioController implements Initializable {
         org.tempuri.Service1 service = new org.tempuri.Service1();
         org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
         return port.modificarUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil);
+    }
+
+    private static ArrayOfEntPerfilUsuario retornarPerfilUsuarios() {
+        org.tempuri.Service1 service = new org.tempuri.Service1();
+        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        return port.retornarPerfilUsuarios();
     }
 
 }

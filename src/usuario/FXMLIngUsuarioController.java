@@ -25,8 +25,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntUsuario;
-import org.datacontract.schemas._2004._07.backsafe.EntUsuario;
+import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
+import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
 import paquete.Conexion;
 import static usuario.FXMLIngUsuarioController.crearUsuario;
 
@@ -89,64 +89,12 @@ public class FXMLIngUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        
-
-        cbContrato.setItems(contratosList);
-        cbEmpresa.setItems(empresasList);
         cbPerfil.setItems(perfilList);
 
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
+        for (EntPerfilUsuario er : retornarPerfilUsuarios().getEntPerfilUsuario()) {
 
-            String sql = "select * from contrato";
+            perfilList.add(er.getIdPerfil().getValue());
 
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
-
-                contratosList.add(result.getString("id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
-        }
-
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-
-            String sql = "select * from empresa";
-
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
-
-                empresasList.add(result.getString("usuario_id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
-        }
-
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-
-            String sql = "select * from perfil_usuario";
-
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
-
-                perfilList.add(result.getString("id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
         }
 
     }
@@ -159,22 +107,37 @@ public class FXMLIngUsuarioController implements Initializable {
 
     @FXML
     private void ingresarUsuario(ActionEvent event) throws SQLException {
-        
 
         BigDecimal rut = new BigDecimal(txtRut.getText());
         BigDecimal telefono = new BigDecimal(txtTelefono.getText());
         BigDecimal perfil = new BigDecimal(cbPerfil.getValue());
-        
+
+        Integer perfil2 = new Integer(cbPerfil.getValue());
+
         if (crearUsuario(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
-            System.out.println("FUNCIONA!!!");
+            System.out.println("Usuario ingresado");
         }
 
+        /*if (perfil2 == 5) {
+            if (crearUsuario(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
+                System.out.println("Usuario medico ingresado");
+            }
+        } else if (perfil2 == 6) {
+            if (crearUsuario(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
+                System.out.println("Usuario trabajadoringresado");
+            }
+
+        } else {
+            
+        }
+         */
+        
+        
         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
         alert2.setTitle("Ingresar usuario");
         alert2.setHeaderText("Usuario");
         alert2.setContentText("El usuario ha sido ingresado");
         alert2.showAndWait();
-
 
         txtRut.clear();
         txtContrasena.clear();
@@ -191,28 +154,40 @@ public class FXMLIngUsuarioController implements Initializable {
         txtMedicoCorreo.clear();
         txtMedicoTelefono.clear();
 
-
     }
 
     @FXML
-    private void perfilUsuario(ActionEvent event) {
+    private void perfilUsuario(ActionEvent event
+    ) {
+
         cbPerfil.setItems(perfilList);
-        
-        if(cbPerfil.getValue() == "1"){
+
+        Integer perfil = new Integer(cbPerfil.getValue());
+
+        if (perfil == 5) {
             pMedico.setDisable(false);
+            pTrabajador.setDisable(true);
+        } else if (perfil == 6) {
+            pMedico.setDisable(true);
+            pTrabajador.setDisable(false);
+        } else {
+            pMedico.setDisable(true);
+            pTrabajador.setDisable(true);
         }
-            
+
     }
 
     @FXML
-    private void mostrarContratos(ActionEvent event) {
-        cbContrato.setItems(contratosList);
+    private void mostrarContratos(ActionEvent event
+    ) {
+        //cbContrato.setItems(contratosList);
     }
 
     @FXML
-    private void mostrarEmpresas(ActionEvent event) {
-        
-        cbEmpresa.setItems(empresasList);
+    private void mostrarEmpresas(ActionEvent event
+    ) {
+
+        //cbEmpresa.setItems(empresasList);
     }
 
     public static Boolean crearUsuario(java.math.BigDecimal rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil) {
@@ -221,13 +196,10 @@ public class FXMLIngUsuarioController implements Initializable {
         return port.crearUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil);
     }
 
-    private static ArrayOfEntUsuario retornarUsuarios() {
+    private static ArrayOfEntPerfilUsuario retornarPerfilUsuarios() {
         org.tempuri.Service1 service = new org.tempuri.Service1();
         org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
-        return port.retornarUsuarios();
+        return port.retornarPerfilUsuarios();
     }
-
-
-    
 
 }

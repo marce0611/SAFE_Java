@@ -52,7 +52,7 @@ public class FXMLIngTipoEvaluacionController implements Initializable {
     void ingresarTipoEvaluacion(ActionEvent event) throws SQLException {
         
             if (crearTipoEvaluacion(txtDescripcion.getText())) {
-            System.out.println("FUNCIONA!!!");
+            System.out.println("Tipo de evaluacion ingresado");
         }
             
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
