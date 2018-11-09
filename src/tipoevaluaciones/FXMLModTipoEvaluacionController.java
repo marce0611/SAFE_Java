@@ -80,10 +80,10 @@ public class FXMLModTipoEvaluacionController implements Initializable {
 
     }
 
-    private static Boolean modificarTipoEvaluacion_1(java.math.BigDecimal id, java.lang.String descripcion) {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
-        return port.modificarTipoEvaluacion(id, descripcion);
+    private static Boolean modificarTipoEvaluacion_1(java.math.BigDecimal idTipoeval, java.lang.String descripcion) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.modificarTipoEvaluacion(idTipoeval, descripcion);
     }
 
 }

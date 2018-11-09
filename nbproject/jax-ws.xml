@@ -2,9 +2,9 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services/>
   <clients>
-    <client name="Service1">
-      <wsdl-url>http://localhost:59177/Service1.svc?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_59177/Service1.svc.wsdl</local-wsdl-file>
+    <client name="ServicioAppEscritorio">
+      <wsdl-url>http://localhost:59177/ServicioAppEscritorio.svc?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_59177/ServicioAppEscritorio.svc.wsdl</local-wsdl-file>
       <package-name>org.tempuri</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:59177/Service1.svc?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:59177/ServicioAppEscritorio.svc?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>

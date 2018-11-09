@@ -5,4 +5,8 @@
     <system systemId="http://localhost:59177/Service1.svc?xsd=xsd1" uri="wsdl/localhost_59177/Service1.svc.xsd_xsd1.xsd"/>
     <system systemId="http://localhost:59177/Service1.svc?xsd=xsd2" uri="wsdl/localhost_59177/Service1.svc.xsd_xsd2.xsd"/>
     <system systemId="http://localhost:59177/Service1.svc?xsd=xsd3" uri="wsdl/localhost_59177/Service1.svc.xsd_xsd3.xsd"/>
+    <system systemId="http://localhost:59177/ServicioAppEscritorio.svc?wsdl" uri="wsdl/localhost_59177/ServicioAppEscritorio.svc.wsdl"/>
+    <system systemId="http://localhost:59177/ServicioAppEscritorio.svc?xsd=xsd0" uri="wsdl/localhost_59177/ServicioAppEscritorio.svc.xsd_xsd0.xsd"/>
+    <system systemId="http://localhost:59177/ServicioAppEscritorio.svc?xsd=xsd1" uri="wsdl/localhost_59177/ServicioAppEscritorio.svc.xsd_xsd1.xsd"/>
+    <system systemId="http://localhost:59177/ServicioAppEscritorio.svc?xsd=xsd2" uri="wsdl/localhost_59177/ServicioAppEscritorio.svc.xsd_xsd2.xsd"/>
 </catalog>

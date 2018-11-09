@@ -32,14 +32,13 @@ public class FXMLIngTipoEvaluacionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private Button btnCancelar;
 
     @FXML
     private TextField txtDescripcion;
-
 
     @FXML
     void cancelar(ActionEvent event) {
@@ -50,28 +49,25 @@ public class FXMLIngTipoEvaluacionController implements Initializable {
 
     @FXML
     void ingresarTipoEvaluacion(ActionEvent event) throws SQLException {
-        
-            if (crearTipoEvaluacion(txtDescripcion.getText())) {
+
+        if (crearTipoEvaluacion(txtDescripcion.getText())) {
             System.out.println("Tipo de evaluacion ingresado");
         }
-            
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Ingresar tipo de evaluacion");
-            alert2.setHeaderText("Tipo de evaluacion");
-            alert2.setContentText("El tipo de evaluacion ha sido ingresado");
-            alert2.showAndWait();
-            
-            txtDescripcion.clear();
+
+        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+        alert2.setTitle("Ingresar tipo de evaluacion");
+        alert2.setHeaderText("Tipo de evaluacion");
+        alert2.setContentText("El tipo de evaluacion ha sido ingresado");
+        alert2.showAndWait();
+
+        txtDescripcion.clear();
 
     }
 
     private static Boolean crearTipoEvaluacion(java.lang.String descripcion) {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.crearTipoEvaluacion(descripcion);
     }
 
-
-
-    
 }

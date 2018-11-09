@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import static usuario.FXMLIngUsuarioController.crearUsuario;
 
 /**
  * FXML Controller class
@@ -22,7 +21,6 @@ import static usuario.FXMLIngUsuarioController.crearUsuario;
  * @author marce
  */
 public class LoginController implements Initializable {
-
 
     @FXML
     private TextField txtRut;
@@ -44,7 +42,6 @@ public class LoginController implements Initializable {
         //if (login(rut, txtContrasena.getText(), txtNombre.getText()) {
         //    System.out.println("Usuario ingresado");
         //}
-
         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
         alert2.setTitle("Ingresar usuario");
         alert2.setHeaderText("Usuario");
@@ -56,8 +53,8 @@ public class LoginController implements Initializable {
     }
 
     private static String login(java.math.BigDecimal rut, java.lang.String contraseña) {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.login(rut, contraseña);
     }
 

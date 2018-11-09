@@ -16,22 +16,22 @@
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-Service1" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/Service1"/>
-        <property name="wsdl-Service1" location="xml-resources/web-service-references/Service1/wsdl/localhost_59177/Service1.svc.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Service1" destdir="${build.generated.dir}/jax-wsCache/Service1" wsdl="${wsdl-Service1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:59177/Service1.svc?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-Service1}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/Service1"/>
+    <target name="wsimport-client-ServicioAppEscritorio" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ServicioAppEscritorio"/>
+        <property name="wsdl-ServicioAppEscritorio" location="xml-resources/web-service-references/ServicioAppEscritorio/wsdl/localhost_59177/ServicioAppEscritorio.svc.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServicioAppEscritorio" destdir="${build.generated.dir}/jax-wsCache/ServicioAppEscritorio" wsdl="${wsdl-ServicioAppEscritorio}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:59177/ServicioAppEscritorio.svc?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-ServicioAppEscritorio}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ServicioAppEscritorio"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/Service1">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ServicioAppEscritorio">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-Service1" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/Service1"/>
+    <target name="wsimport-client-clean-ServicioAppEscritorio" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ServicioAppEscritorio"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/org/tempuri"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-Service1"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-ServicioAppEscritorio"/>
 </project>

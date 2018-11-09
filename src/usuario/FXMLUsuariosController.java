@@ -119,12 +119,6 @@ public class FXMLUsuariosController implements Initializable {
         }
     }
 
-    public static ArrayOfEntUsuario retornarUsuarios() {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
-        return port.retornarUsuarios();
-    }
-
     @FXML
     void ingresarUsuario(ActionEvent event) {
         try {
@@ -198,6 +192,12 @@ public class FXMLUsuariosController implements Initializable {
         clPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil_usuario"));
 
         table.setItems(usuariosList);
+    }
+
+    private static ArrayOfEntUsuario retornarUsuarios() {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.retornarUsuarios();
     }
 
 }

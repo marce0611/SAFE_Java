@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
 import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
 import paquete.Conexion;
-import static usuario.FXMLIngUsuarioController.crearUsuario;
 
 /**
  * FXML Controller class
@@ -131,8 +130,6 @@ public class FXMLIngUsuarioController implements Initializable {
             
         }
          */
-        
-        
         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
         alert2.setTitle("Ingresar usuario");
         alert2.setHeaderText("Usuario");
@@ -190,15 +187,15 @@ public class FXMLIngUsuarioController implements Initializable {
         //cbEmpresa.setItems(empresasList);
     }
 
-    public static Boolean crearUsuario(java.math.BigDecimal rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil) {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+    private static Boolean crearUsuario(java.math.BigDecimal rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.crearUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil);
     }
 
     private static ArrayOfEntPerfilUsuario retornarPerfilUsuarios() {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.retornarPerfilUsuarios();
     }
 

@@ -77,8 +77,8 @@ public class FXMLEliTipoEvaluacionController implements Initializable {
     }
 
     private static Boolean eliminarTipoEvaluacion_1(java.math.BigDecimal idTipoeval) {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.eliminarTipoEvaluacion(idTipoeval);
     }
 

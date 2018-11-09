@@ -5,13 +5,9 @@
  */
 package empresa;
 
-import paquete.Conexion;
+import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntUsuario;
+import org.datacontract.schemas._2004._07.backsafe.EntUsuario;
 
 /**
  * FXML Controller class
@@ -37,38 +35,25 @@ public class FXMLIngEmpresaController implements Initializable {
     private TextField txtNombre;
     @FXML
     private Button btnCancelar;
-
-    @FXML
-    private ComboBox<String> idUsuario;
-
     @FXML
     private Button btnIngresar;
+    @FXML
+    private ComboBox<String> cbId;
 
-    private ObservableList<String> usuariosList = FXCollections.observableArrayList();
+    private ObservableList<String> usuarioList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        cbId.setItems(usuarioList);
 
-        idUsuario.setItems(usuariosList);
+        for (EntUsuario er : retornarUsuarios().getEntUsuario()) {
 
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
+            usuarioList.add(er.getIdUsuario().getValue());
 
-            String sql = "select * from usuario";
-
-            PreparedStatement prdst = con.prepareStatement(sql);
-            ResultSet result = prdst.executeQuery(sql);
-            while (result.next()) {
-
-                usuariosList.add(result.getString("id"));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
         }
+
     }
 
     /**
@@ -82,29 +67,39 @@ public class FXMLIngEmpresaController implements Initializable {
     }
 
     @FXML
-    void mostrarIdUsuario(ActionEvent event) {
-        idUsuario.setItems(usuariosList);
-    }
-
-    @FXML
     void ingresarEmpresa(ActionEvent event) throws SQLException {
-        Conexion conexion = new Conexion();
-        Connection con = conexion.conectarBD("safe_db");
 
-        String sql = "insert into empresa values('" + idUsuario.getValue() + "', '" + txtNombre.getText() + "', '" + txtRut.getText() + "')";
-
-        Statement stmn = con.createStatement();
-        stmn.executeUpdate(sql);
-
+        BigDecimal id = new BigDecimal(cbId.getValue());
+        
+        crearEmpresa(id, txtNombre.getText(), txtRut.getText());
+        
         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
         alert2.setTitle("Ingresar empresa");
         alert2.setHeaderText("Empresa");
         alert2.setContentText("La empresa ha sido ingresada");
         alert2.showAndWait();
-        
+
         txtNombre.clear();
         txtRut.clear();
 
+    }
+
+    private static Boolean crearEmpresa(java.math.BigDecimal usuarioId, java.lang.String nomEmpresa, java.lang.String runEmpresa) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.crearEmpresa(usuarioId, nomEmpresa, runEmpresa);
+    }
+
+    @FXML
+    private void mostrarId(ActionEvent event) {
+        
+        cbId.setItems(usuarioList);
+    }
+
+    private static ArrayOfEntUsuario retornarUsuarios() {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.retornarUsuarios();
     }
 
 }

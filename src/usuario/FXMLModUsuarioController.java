@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
 import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
 import paquete.Conexion;
-import static usuario.FXMLIngUsuarioController.crearUsuario;
 
 /**
  * FXML Controller class
@@ -170,15 +169,17 @@ public class FXMLModUsuarioController implements Initializable {
     }
 
     private static Boolean modificarUsuario_1(java.math.BigDecimal rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil) {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.modificarUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil);
     }
 
     private static ArrayOfEntPerfilUsuario retornarPerfilUsuarios() {
-        org.tempuri.Service1 service = new org.tempuri.Service1();
-        org.tempuri.IService1 port = service.getBasicHttpBindingIService1();
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.retornarPerfilUsuarios();
     }
+
+
 
 }

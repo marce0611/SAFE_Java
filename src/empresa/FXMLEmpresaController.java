@@ -24,7 +24,11 @@ import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntEmpresa;
+import org.datacontract.schemas._2004._07.backsafe.EntEmpresa;
+import org.datacontract.schemas._2004._07.backsafe.EntUsuario;
 import paquete.Conexion;
+import usuario.Usuario;
 
 /**
  * FXML Controller class
@@ -56,20 +60,10 @@ public class FXMLEmpresaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
+        for (EntEmpresa er : retornarEmpresas().getEntEmpresa()) {
 
-            ResultSet rs = con.createStatement().executeQuery("select * from empresa");
+            empresasList.add(new Empresa(er.getIdUsuario().getValue(), er.getNomEmpresa().getValue(), er.getRunEmpresa().getValue()));
 
-            while (rs.next()) {
-
-                empresasList.add(new Empresa(rs.getString("usuario_id"), rs.getString("nombre_empresa"), rs.getString("run_empresa")));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
         }
 
         cId.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
@@ -146,20 +140,12 @@ public class FXMLEmpresaController implements Initializable {
     private void cargarDatos(ActionEvent event) {
         tableView.getItems().clear();
         
-        try {
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
+       
 
-            ResultSet rs = con.createStatement().executeQuery("select * from empresa");
+        for (EntEmpresa er : retornarEmpresas().getEntEmpresa()) {
 
-            while (rs.next()) {
+            empresasList.add(new Empresa(er.getIdUsuario().getValue(), er.getNomEmpresa().getValue(), er.getRunEmpresa().getValue()));
 
-                empresasList.add(new Empresa(rs.getString("usuario_id"), rs.getString("nombre_empresa"), rs.getString("run_empresa")));
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error" + ex);
         }
 
         cId.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
@@ -167,6 +153,12 @@ public class FXMLEmpresaController implements Initializable {
         cRut.setCellValueFactory(new PropertyValueFactory<>("run_empresa"));
 
         tableView.setItems(empresasList);
+    }
+
+    private static ArrayOfEntEmpresa retornarEmpresas() {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.retornarEmpresas();
     }
 
 }

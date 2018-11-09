@@ -28,8 +28,7 @@
                   <Image url="/img/logo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtId" layoutX="388.0" layoutY="230.0" />
-            <Label layoutX="352.0" layoutY="234.0" text="ID:" />
+            <Label layoutX="313.0" layoutY="238.0" text="ID Usuario:" />
             <Label layoutX="307.0" layoutY="292.0" text="Rut empresa:" />
             <TextField fx:id="txtRut" layoutX="388.0" layoutY="288.0" />
             <Label layoutX="189.0" layoutY="350.0" text="Nombre empresa:" />
@@ -37,6 +36,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutX="-3.0" layoutY="95.0" stroke="#ffffff00" strokeType="INSIDE" width="890.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutX="-3.0" layoutY="497.0" stroke="#ffffff00" strokeType="INSIDE" width="890.0" />
             <Label layoutX="382.0" layoutY="542.0" text="SAFE - Prevención de riesgos." textFill="WHITE" />
+            <ComboBox fx:id="cbId" layoutX="388.0" layoutY="234.0" onAction="#mostrarId" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </children>
