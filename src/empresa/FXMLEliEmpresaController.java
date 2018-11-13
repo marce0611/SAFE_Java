@@ -28,6 +28,11 @@ import javax.naming.NamingException;
  */
 public class FXMLEliEmpresaController implements Initializable {
 
+    @FXML
+    private Button btnEliminar;
+    @FXML
+    private TextField txtID;
+
     /**
      * Initializes the controller class.
      */
@@ -36,8 +41,6 @@ public class FXMLEliEmpresaController implements Initializable {
         // TODO
     }
 
-    @FXML
-    private TextField txtRun;
 
     @FXML
     private Button btnCancelar;
@@ -60,7 +63,7 @@ public class FXMLEliEmpresaController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
 
-            BigDecimal rut = new BigDecimal(txtRun.getText());
+            BigDecimal rut = new BigDecimal(txtID.getText());
 
             eliminarEmpresa_1(rut);
 
@@ -70,7 +73,7 @@ public class FXMLEliEmpresaController implements Initializable {
             alert2.setContentText("La empresa ha sido eliminada");
             alert2.showAndWait();
 
-            txtRun.setText("");
+            txtID.setText("");
 
         } else {
             alert.close();

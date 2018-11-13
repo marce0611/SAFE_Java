@@ -35,9 +35,12 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutX="-2.0" layoutY="497.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
             <TableView fx:id="tableView" layoutX="21.0" layoutY="265.0" prefHeight="183.0" prefWidth="841.0">
               <columns>
-                <TableColumn fx:id="cId" prefWidth="177.0" text="Id Usuario" />
-                <TableColumn fx:id="cNombre" prefWidth="521.0" text="Nombre Empresa" />
-                  <TableColumn fx:id="cRut" prefWidth="142.0" text="Rut Empresa" />
+                <TableColumn fx:id="cId" prefWidth="34.0" text="ID" />
+                <TableColumn fx:id="cNombre" prefWidth="251.0" text="Nombre Empresa" />
+                  <TableColumn fx:id="cRut" prefWidth="105.0" text="Rut Empresa" />
+                  <TableColumn fx:id="cDireccion" prefWidth="143.0" text="Direccion" />
+                  <TableColumn fx:id="cTelefono" prefWidth="152.0" text="Telefono" />
+                  <TableColumn fx:id="cCorreo" prefWidth="155.0" text="Correo" />
               </columns>
             </TableView>
             <Button fx:id="btnCargar" layoutX="410.0" layoutY="455.0" mnemonicParsing="false" onAction="#cargarDatos" text="Cargar datos" />

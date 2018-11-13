@@ -28,8 +28,8 @@
                   <Image url="/img/logo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtRun" layoutX="385.0" layoutY="259.0" />
-            <Label layoutX="349.0" layoutY="263.0" text="Run:" />
+            <TextField fx:id="txtID" layoutX="385.0" layoutY="259.0" />
+            <Label layoutX="349.0" layoutY="263.0" text="ID:" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutY="92.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" layoutY="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="889.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutY="497.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />

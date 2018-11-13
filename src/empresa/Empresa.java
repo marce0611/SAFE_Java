@@ -11,20 +11,23 @@ package empresa;
  */
 public class Empresa {
 
-    String id_usuario, nombre_empresa, run_empresa;
+    String empresa_id, nombre_empresa, rut_empresa, direccion_empresa, telefono_empresa, correo_empresa;
 
-    public Empresa(String id_usuario, String nombre_empresa, String run_empresa) {
-        this.id_usuario = id_usuario;
+    public Empresa(String empresa_id, String nombre_empresa, String rut_empresa, String direccion_empresa, String telefono_empresa, String correo_empresa) {
+        this.empresa_id = empresa_id;
         this.nombre_empresa = nombre_empresa;
-        this.run_empresa = run_empresa;
+        this.rut_empresa = rut_empresa;
+        this.direccion_empresa = direccion_empresa;
+        this.telefono_empresa = telefono_empresa;
+        this.correo_empresa = correo_empresa;
     }
 
-    public String getId_usuario() {
-        return id_usuario;
+    public String getEmpresa_id() {
+        return empresa_id;
     }
 
-    public void setId_usuario(String id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setEmpresa_id(String empresa_id) {
+        this.empresa_id = empresa_id;
     }
 
     public String getNombre_empresa() {
@@ -35,13 +38,40 @@ public class Empresa {
         this.nombre_empresa = nombre_empresa;
     }
 
-    public String getRun_empresa() {
-        return run_empresa;
+    public String getRut_empresa() {
+        return rut_empresa;
     }
 
-    public void setRun_empresa(String run_empresa) {
-        this.run_empresa = run_empresa;
+    public void setRut_empresa(String rut_empresa) {
+        this.rut_empresa = rut_empresa;
     }
+
+    public String getDireccion_empresa() {
+        return direccion_empresa;
+    }
+
+    public void setDireccion_empresa(String direccion_empresa) {
+        this.direccion_empresa = direccion_empresa;
+    }
+
+    public String getTelefono_empresa() {
+        return telefono_empresa;
+    }
+
+    public void setTelefono_empresa(String telefono_empresa) {
+        this.telefono_empresa = telefono_empresa;
+    }
+
+    public String getCorreo_empresa() {
+        return correo_empresa;
+    }
+
+    public void setCorreo_empresa(String correo_empresa) {
+        this.correo_empresa = correo_empresa;
+    }
+    
+    
+
 
     
 }
