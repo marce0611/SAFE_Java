@@ -16,8 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -26,12 +28,9 @@ import javafx.stage.Stage;
  */
 public class FXMLModEmpresaController implements Initializable {
 
-
-
     /**
      * Initializes the controller class.
      */
-
     @FXML
     private TextField txtCorreo;
     @FXML
@@ -42,12 +41,22 @@ public class FXMLModEmpresaController implements Initializable {
     private TextField txtId;
     @FXML
     private TextField txtRut;
-
     @FXML
     private TextField txtNombre;
-
     @FXML
     private Button btnCancelar;
+    @FXML
+    private Label lblRut;
+    @FXML
+    private Label lblDireccion;
+    @FXML
+    private Label lblCorreo;
+    @FXML
+    private Label lblNombre;
+    @FXML
+    private Label lblTelefono;
+    @FXML
+    private Label lblId;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -65,34 +74,50 @@ public class FXMLModEmpresaController implements Initializable {
     @FXML
     void modificarEmpresa(ActionEvent event) throws SQLException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Ventana de confirmación");
-        alert.setHeaderText("Confirmación");
-        alert.setContentText("¿Está seguro que desea modificar?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        boolean id1 = FormValidador.textFieldNoVacio(txtId, lblId, "Campo requerido");
+        boolean nombre = FormValidador.textFieldNoVacio(txtNombre, lblNombre, "Campo requerido");
+        boolean rut = FormValidador.textFieldNoVacio(txtRut, lblRut, "Campo requerido");
+        boolean direccion = FormValidador.textFieldNoVacio(txtDireccion, lblDireccion, "Campo requerido");
+        boolean telef = FormValidador.textFieldNoVacio(txtTelefono, lblTelefono, "Campo requerido");
+        boolean correo = FormValidador.textFieldNoVacio(txtCorreo, lblCorreo, "Campo requerido");
 
-            BigDecimal id = new BigDecimal(txtId.getText());
-            BigDecimal telefono = new BigDecimal(txtTelefono.getText());
+        if (id1 && nombre && rut && direccion && telef && correo) {
+            if (FormValidador.validarRut(txtRut.getText())) {
+                String r = txtRut.getText().replace(".", "");
+                
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Ventana de confirmación");
+                alert.setHeaderText("Confirmación");
+                alert.setContentText("¿Está seguro que desea modificar?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
 
-            modificarEmpresa_1(id, txtNombre.getText(), txtRut.getText(),txtDireccion.getText(),telefono,txtCorreo.getText() );
-            
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Modificar empresa");
-            alert2.setHeaderText("Empresa");
-            alert2.setContentText("La empresa ha sido modificada");
-            alert2.showAndWait();
+                    BigDecimal id = new BigDecimal(txtId.getText());
+                    BigDecimal telefono = new BigDecimal(txtTelefono.getText());
 
-            txtId.clear();
-            txtNombre.clear();
-            txtRut.clear();
-            txtDireccion.clear();
-            txtTelefono.clear();
-            txtCorreo.clear();
-                    
+                    modificarEmpresa_1(id, txtNombre.getText(), r, txtDireccion.getText(), telefono, txtCorreo.getText());
 
-        } else {
-            alert.close();
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Modificar empresa");
+                    alert2.setHeaderText("Empresa");
+                    alert2.setContentText("La empresa ha sido modificada");
+                    alert2.showAndWait();
+
+                    txtId.clear();
+                    txtNombre.clear();
+                    txtRut.clear();
+                    txtDireccion.clear();
+                    txtTelefono.clear();
+                    txtCorreo.clear();
+
+                } else {
+                    alert.close();
+                }
+
+            }else {
+                lblRut.setText("Rut inválido");
+            }
+
         }
 
     }
@@ -102,7 +127,5 @@ public class FXMLModEmpresaController implements Initializable {
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.modificarEmpresa(idEmpresa, nomEmpresa, runEmpresa, dirEmpresa, telEmpresa, corEmpresa);
     }
-
-
 
 }

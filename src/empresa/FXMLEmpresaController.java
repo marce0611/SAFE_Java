@@ -7,9 +7,6 @@ package empresa;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +16,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
@@ -27,9 +23,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntEmpresa;
 import org.datacontract.schemas._2004._07.backsafe.EntEmpresa;
-import org.datacontract.schemas._2004._07.backsafe.EntUsuario;
-import paquete.Conexion;
-import usuario.Usuario;
 
 /**
  * FXML Controller class
@@ -57,15 +50,17 @@ public class FXMLEmpresaController implements Initializable {
     private TableColumn<Empresa, String> cTelefono;
     @FXML
     private TableColumn<Empresa, String> cCorreo;
+    @FXML
+    private TableColumn<Empresa, String> cEstado;
 
     private ObservableList<Empresa> empresasList = FXCollections.observableArrayList();
-      
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         for (EntEmpresa er : retornarEmpresas().getEntEmpresa()) {
 
-            empresasList.add(new Empresa(er.getIdEmpresa().getValue(), er.getNomEmpresa().getValue(), er.getRunEmpresa().getValue(), er.getDirEmpresa().getValue(), er.getTelEmpresa().getValue(), er.getCorEmpresa().getValue()));
+            empresasList.add(new Empresa(er.getIdEmpresa().getValue(), er.getNomEmpresa().getValue(), er.getRunEmpresa().getValue(), er.getDirEmpresa().getValue(), er.getTelEmpresa().getValue(), er.getCorEmpresa().getValue(), er.getEstEmpresa().getValue()));
 
         }
 
@@ -75,6 +70,7 @@ public class FXMLEmpresaController implements Initializable {
         cDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion_empresa"));
         cTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono_empresa"));
         cCorreo.setCellValueFactory(new PropertyValueFactory<>("correo_empresa"));
+        cEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         tableView.setItems(empresasList);
 
@@ -145,12 +141,10 @@ public class FXMLEmpresaController implements Initializable {
     @FXML
     private void cargarDatos(ActionEvent event) {
         tableView.getItems().clear();
-        
-       
 
         for (EntEmpresa er : retornarEmpresas().getEntEmpresa()) {
 
-            empresasList.add(new Empresa(er.getIdEmpresa().getValue(), er.getNomEmpresa().getValue(), er.getRunEmpresa().getValue(), er.getDirEmpresa().getValue(), er.getTelEmpresa().getValue(), er.getCorEmpresa().getValue()));
+            empresasList.add(new Empresa(er.getIdEmpresa().getValue(), er.getNomEmpresa().getValue(), er.getRunEmpresa().getValue(), er.getDirEmpresa().getValue(), er.getTelEmpresa().getValue(), er.getCorEmpresa().getValue(), er.getEstEmpresa().getValue()));
 
         }
 
@@ -160,6 +154,7 @@ public class FXMLEmpresaController implements Initializable {
         cDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion_empresa"));
         cTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono_empresa"));
         cCorreo.setCellValueFactory(new PropertyValueFactory<>("correo_empresa"));
+        cEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         tableView.setItems(empresasList);
     }
@@ -169,7 +164,5 @@ public class FXMLEmpresaController implements Initializable {
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.retornarEmpresas();
     }
-
-
 
 }

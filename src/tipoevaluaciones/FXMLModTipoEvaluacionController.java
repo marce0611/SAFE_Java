@@ -16,8 +16,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -26,13 +28,10 @@ import javafx.stage.Stage;
  */
 public class FXMLModTipoEvaluacionController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+    @FXML
+    private Label lblId;
+    @FXML
+    private Label lblDesc;
 
     @FXML
     private TextField txtId;
@@ -43,6 +42,14 @@ public class FXMLModTipoEvaluacionController implements Initializable {
     @FXML
     private TextField txtDescripcion;
 
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
+
     @FXML
     void cancelar(ActionEvent event) {
         Stage stage2 = (Stage) btnCancelar.getScene().getWindow();
@@ -52,30 +59,35 @@ public class FXMLModTipoEvaluacionController implements Initializable {
     @FXML
     void modificarTipoEvaluacion(ActionEvent event) throws SQLException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Ventana de confirmación");
-        alert.setHeaderText("Confirmación");
-        alert.setContentText("¿Está seguro que desea modificar?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        boolean id1 = FormValidador.textFieldNoVacio(txtId, lblId, "Campo requerido");
+        boolean descripcion = FormValidador.textFieldNoVacio(txtDescripcion, lblDesc, "Campo requerido");
 
-            BigDecimal id = new BigDecimal(txtId.getText());
+        if (id1 && descripcion) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Ventana de confirmación");
+            alert.setHeaderText("Confirmación");
+            alert.setContentText("¿Está seguro que desea modificar?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
 
-            if (modificarTipoEvaluacion_1(id, txtDescripcion.getText())) {
-                System.out.println("Tipo de evaluacion modificado");
-            };
+                BigDecimal id = new BigDecimal(txtId.getText());
 
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Modificar tipo de evaluacion");
-            alert2.setHeaderText("Tipo de evaluacion");
-            alert2.setContentText("El tipo de evaluacion ha sido modificado");
-            alert2.showAndWait();
+                if (modificarTipoEvaluacion_1(id, txtDescripcion.getText())) {
+                    System.out.println("Tipo de evaluacion modificado");
+                };
 
-            txtId.setText("");
-            txtDescripcion.setText("");
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Modificar tipo de evaluacion");
+                alert2.setHeaderText("Tipo de evaluacion");
+                alert2.setContentText("El tipo de evaluacion ha sido modificado");
+                alert2.showAndWait();
 
-        } else {
-            alert.close();
+                txtId.setText("");
+                txtDescripcion.setText("");
+
+            } else {
+                alert.close();
+            }
         }
 
     }

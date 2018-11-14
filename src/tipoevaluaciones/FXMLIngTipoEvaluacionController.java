@@ -13,9 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -23,6 +24,9 @@ import javafx.stage.Stage;
  * @author Lucy
  */
 public class FXMLIngTipoEvaluacionController implements Initializable {
+
+    @FXML
+    private Label lblDesc;
 
     /**
      * Initializes the controller class.
@@ -48,17 +52,20 @@ public class FXMLIngTipoEvaluacionController implements Initializable {
     @FXML
     void ingresarTipoEvaluacion(ActionEvent event) throws SQLException {
 
-        if (crearTipoEvaluacion(txtDescripcion.getText())) {
-            System.out.println("Tipo de evaluacion ingresado");
+        boolean descripcion = FormValidador.textFieldNoVacio(txtDescripcion, lblDesc, "Campo requerido");
+
+        if (descripcion) {
+            crearTipoEvaluacion(txtDescripcion.getText());
+
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Ingresar tipo de evaluacion");
+            alert2.setHeaderText("Tipo de evaluacion");
+            alert2.setContentText("El tipo de evaluacion ha sido ingresado");
+            alert2.showAndWait();
+
+            txtDescripcion.clear();
+
         }
-
-        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-        alert2.setTitle("Ingresar tipo de evaluacion");
-        alert2.setHeaderText("Tipo de evaluacion");
-        alert2.setContentText("El tipo de evaluacion ha sido ingresado");
-        alert2.showAndWait();
-
-        txtDescripcion.clear();
 
     }
 

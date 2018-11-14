@@ -5,7 +5,6 @@
  */
 package empresa;
 
-import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -16,10 +15,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.naming.NamingException;
-
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -29,9 +29,9 @@ import javax.naming.NamingException;
 public class FXMLEliEmpresaController implements Initializable {
 
     @FXML
-    private Button btnEliminar;
+    private TextField txtRut;
     @FXML
-    private TextField txtID;
+    private Label lblRut;
 
     /**
      * Initializes the controller class.
@@ -40,7 +40,6 @@ public class FXMLEliEmpresaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
 
     @FXML
     private Button btnCancelar;
@@ -56,35 +55,44 @@ public class FXMLEliEmpresaController implements Initializable {
     @FXML
     void eliminarEmpresa(ActionEvent event) throws SQLException, NamingException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Ventana de confirmación");
-        alert.setHeaderText("Confirmación");
-        alert.setContentText("¿Está seguro que desea eliminar?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        boolean rut = FormValidador.textFieldNoVacio(txtRut, lblRut, "Campo requerido");
 
-            BigDecimal rut = new BigDecimal(txtID.getText());
+        if (rut) {
+            if (FormValidador.validarRut(txtRut.getText())) {
+                String r = txtRut.getText().replace(".", "");
 
-            eliminarEmpresa_1(rut);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Ventana de confirmación");
+                alert.setHeaderText("Confirmación");
+                alert.setContentText("¿Está seguro que desea eliminar?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
 
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Eliminar empresa");
-            alert2.setHeaderText("Empresa");
-            alert2.setContentText("La empresa ha sido eliminada");
-            alert2.showAndWait();
+                    eliminarEmpresa_1(r);
 
-            txtID.setText("");
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Eliminar empresa");
+                    alert2.setHeaderText("Empresa");
+                    alert2.setContentText("La empresa ha sido eliminada");
+                    alert2.showAndWait();
 
-        } else {
-            alert.close();
+                    txtRut.clear();
+
+                } else {
+                    alert.close();
+                }
+            }else {
+                lblRut.setText("Rut inválido");
+            }
+
         }
 
     }
 
-    private static Boolean eliminarEmpresa_1(java.math.BigDecimal runEmpresa) {
+    private static Boolean eliminarEmpresa_1(java.lang.String rutempresa) {
         org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
-        return port.eliminarEmpresa(runEmpresa);
+        return port.eliminarEmpresa(rutempresa);
     }
 
 }

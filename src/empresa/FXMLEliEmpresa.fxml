@@ -28,12 +28,13 @@
                   <Image url="/img/logo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="txtID" layoutX="385.0" layoutY="259.0" />
-            <Label layoutX="349.0" layoutY="263.0" text="ID:" />
+            <TextField fx:id="txtRut" layoutX="385.0" layoutY="259.0" promptText="ej. 1111111-1" />
+            <Label layoutX="349.0" layoutY="263.0" text="Rut:" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutY="92.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#043b46" height="100.0" layoutY="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="889.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutY="497.0" stroke="#ffffff00" strokeType="INSIDE" width="887.0" />
             <Label layoutX="382.0" layoutY="542.0" text="SAFE - Prevención de riesgos." textFill="WHITE" />
+            <Label fx:id="lblRut" layoutX="385.0" layoutY="284.0" textFill="RED" />
          </children>
       </AnchorPane>
    </children>

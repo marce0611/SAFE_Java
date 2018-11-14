@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,9 +38,11 @@ public class FXMLTipoEvaluacionController implements Initializable {
     private TableColumn<TipoEvaluacion, String> clId;
     @FXML
     private TableColumn<TipoEvaluacion, String> clDescripcion;
+    @FXML
+    private TableColumn<TipoEvaluacion, String> clEstado;
 
     private ObservableList<TipoEvaluacion> tipoEvaluacionList = FXCollections.observableArrayList();
-
+    
     /**
      * Initializes the controller class.
      */
@@ -48,12 +51,13 @@ public class FXMLTipoEvaluacionController implements Initializable {
         // TODO
         for (EntTipoEvaluacion er : retornarTiposEvaluacion().getEntTipoEvaluacion()) {
 
-            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue()));
+            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue(), er.getEstado().getValue()));
 
         }
 
         clId.setCellValueFactory(new PropertyValueFactory<>("id"));
         clDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        clEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         table.setItems(tipoEvaluacionList);
     }
@@ -129,12 +133,13 @@ public class FXMLTipoEvaluacionController implements Initializable {
 
         for (EntTipoEvaluacion er : retornarTiposEvaluacion().getEntTipoEvaluacion()) {
 
-            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue()));
+            tipoEvaluacionList.add(new TipoEvaluacion(er.getIdTipoeval().getValue(), er.getDescripcion().getValue(), er.getEstado().getValue()));
 
         }
 
         clId.setCellValueFactory(new PropertyValueFactory<>("id"));
         clDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        clEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         table.setItems(tipoEvaluacionList);
     }
@@ -144,5 +149,7 @@ public class FXMLTipoEvaluacionController implements Initializable {
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.retornarTiposEvaluacion();
     }
+
+
 
 }

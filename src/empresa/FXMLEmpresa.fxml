@@ -40,7 +40,8 @@
                   <TableColumn fx:id="cRut" prefWidth="105.0" text="Rut Empresa" />
                   <TableColumn fx:id="cDireccion" prefWidth="143.0" text="Direccion" />
                   <TableColumn fx:id="cTelefono" prefWidth="152.0" text="Telefono" />
-                  <TableColumn fx:id="cCorreo" prefWidth="155.0" text="Correo" />
+                  <TableColumn fx:id="cCorreo" prefWidth="107.0" text="Correo" />
+                  <TableColumn fx:id="cEstado" prefWidth="48.0" text="Estado" />
               </columns>
             </TableView>
             <Button fx:id="btnCargar" layoutX="410.0" layoutY="455.0" mnemonicParsing="false" onAction="#cargarDatos" text="Cargar datos" />

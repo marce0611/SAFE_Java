@@ -37,25 +37,21 @@ public class LoginController implements Initializable {
 
     @FXML
     private void ingresar(ActionEvent event) {
-        BigDecimal rut = new BigDecimal(txtRut.getText());
 
-        //if (login(rut, txtContrasena.getText(), txtNombre.getText()) {
-        //    System.out.println("Usuario ingresado");
-        //}
-        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-        alert2.setTitle("Ingresar usuario");
-        alert2.setHeaderText("Usuario");
-        alert2.setContentText("El usuario ha sido ingresado");
-        alert2.showAndWait();
+        login(txtRut.getText(), txtContrasena.getText());
+
 
         txtRut.clear();
         txtContrasena.clear();
     }
 
-    private static String login(java.math.BigDecimal rut, java.lang.String contraseña) {
+    private static String login(java.lang.String rut, java.lang.String contraseña) {
         org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.login(rut, contraseña);
     }
+
+
+   
 
 }

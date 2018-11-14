@@ -11,15 +11,16 @@ package empresa;
  */
 public class Empresa {
 
-    String empresa_id, nombre_empresa, rut_empresa, direccion_empresa, telefono_empresa, correo_empresa;
+    String empresa_id, nombre_empresa, rut_empresa, direccion_empresa, telefono_empresa, correo_empresa, estado;
 
-    public Empresa(String empresa_id, String nombre_empresa, String rut_empresa, String direccion_empresa, String telefono_empresa, String correo_empresa) {
+    public Empresa(String empresa_id, String nombre_empresa, String rut_empresa, String direccion_empresa, String telefono_empresa, String correo_empresa, String estado) {
         this.empresa_id = empresa_id;
         this.nombre_empresa = nombre_empresa;
         this.rut_empresa = rut_empresa;
         this.direccion_empresa = direccion_empresa;
         this.telefono_empresa = telefono_empresa;
         this.correo_empresa = correo_empresa;
+        this.estado = estado;
     }
 
     public String getEmpresa_id() {
@@ -68,6 +69,14 @@ public class Empresa {
 
     public void setCorreo_empresa(String correo_empresa) {
         this.correo_empresa = correo_empresa;
+    }
+    
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     

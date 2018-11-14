@@ -7,11 +7,7 @@ package usuario;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,13 +17,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
 import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
-import paquete.Conexion;
 
 /**
  * FXML Controller class

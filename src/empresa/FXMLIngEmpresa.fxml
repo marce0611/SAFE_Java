@@ -8,6 +8,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import validador.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="empresa.FXMLIngEmpresaController">
    <children>
@@ -29,7 +30,7 @@
                </image>
             </ImageView>
             <Label layoutX="100.0" layoutY="242.0" text="Rut:" />
-            <TextField fx:id="txtRut" layoutX="137.0" layoutY="238.0" prefHeight="25.0" prefWidth="272.0" />
+            <TextField fx:id="txtRut" layoutX="137.0" layoutY="238.0" prefHeight="25.0" prefWidth="272.0" promptText="ej. 1111111-1" />
             <Label layoutX="454.0" layoutY="242.0" text="Nombre:" />
             <TextField fx:id="txtNombre" layoutX="524.0" layoutY="238.0" prefHeight="25.0" prefWidth="281.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bdd01c" height="6.0" layoutX="-1.0" layoutY="95.0" stroke="#ffffff00" strokeType="INSIDE" width="889.0" />
@@ -38,9 +39,14 @@
             <TextField fx:id="txtDireccion" layoutX="137.0" layoutY="300.0" prefHeight="25.0" prefWidth="272.0" />
             <Label layoutX="73.0" layoutY="304.0" text="Direccion:" />
             <Label layoutX="453.0" layoutY="304.0" text="Telefono:" />
-            <TextField fx:id="txtTelefono" layoutX="524.0" layoutY="300.0" prefHeight="25.0" prefWidth="281.0" />
+            <TextFieldNumeros fx:id="txtTelefono" layoutX="524.0" layoutY="300.0" prefHeight="25.0" prefWidth="281.0" />
             <Label layoutX="84.0" layoutY="361.0" prefHeight="17.0" prefWidth="39.0" text="Correo:" />
             <TextField fx:id="txtCorreo" layoutX="137.0" layoutY="357.0" prefHeight="25.0" prefWidth="272.0" />
+            <Label fx:id="lblRut" layoutX="137.0" layoutY="263.0" textFill="RED" />
+            <Label fx:id="lblDireccion" layoutX="137.0" layoutY="325.0" textFill="RED" />
+            <Label fx:id="lblCorreo" layoutX="137.0" layoutY="382.0" textFill="RED" />
+            <Label fx:id="lblNombre" layoutX="524.0" layoutY="263.0" textFill="RED" />
+            <Label fx:id="lblTelefono" layoutX="524.0" layoutY="325.0" textFill="RED" />
          </children>
       </AnchorPane>
    </children>

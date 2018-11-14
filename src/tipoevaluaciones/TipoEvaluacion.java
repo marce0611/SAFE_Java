@@ -11,11 +11,12 @@ package tipoevaluaciones;
  */
 public class TipoEvaluacion {
     
-    String id, descripcion;
+    String id, descripcion, estado;
 
-    public TipoEvaluacion(String id, String descripcion) {
+    public TipoEvaluacion(String id, String descripcion, String estado) {
         this.id = id;
         this.descripcion = descripcion;
+        this.estado = estado;
     }
 
     public String getId() {
@@ -32,6 +33,14 @@ public class TipoEvaluacion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    
+    public String getEstado() {
+        return estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     

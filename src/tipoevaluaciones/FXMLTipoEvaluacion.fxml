@@ -37,7 +37,8 @@
             <TableView fx:id="table" layoutX="23.0" layoutY="264.0" prefHeight="173.0" prefWidth="844.0">
               <columns>
                 <TableColumn fx:id="clId" prefWidth="214.0" text="ID" />
-                <TableColumn fx:id="clDescripcion" prefWidth="629.0" text="Descripción" />
+                <TableColumn fx:id="clDescripcion" prefWidth="559.0" text="Descripción" />
+                  <TableColumn fx:id="clEstado" minWidth="0.0" prefWidth="69.0" text="Estado" />
               </columns>
             </TableView>
             <Button fx:id="btnCargar" layoutX="417.0" layoutY="455.0" mnemonicParsing="false" onAction="#cargarDatos" text="Cargar datos" />

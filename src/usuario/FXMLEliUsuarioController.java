@@ -6,9 +6,7 @@
 package usuario;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import paquete.Conexion;
 
 /**
  * FXML Controller class
@@ -57,13 +54,7 @@ public class FXMLEliUsuarioController implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK){
         
-            Conexion conexion = new Conexion();
-            Connection con = conexion.conectarBD("safe_db");
-
-            String sql = "delete from usuario where id='"+txtId.getText()+"'";
-
-            Statement stmn = con.createStatement();
-            stmn.executeUpdate(sql);
+            
 
 
             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
