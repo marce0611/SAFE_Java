@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntEmpresa;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
 import org.datacontract.schemas._2004._07.backsafe.EntEmpresa;
 import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -61,8 +63,6 @@ public class FXMLIngUsuarioController implements Initializable {
     @FXML
     private Pane pTrabajador;
     @FXML
-    private TextField txtEstado;
-    @FXML
     private TextField txtTrabajadorCorreo;
     @FXML
     private TextField txtTrabajadorTelefono;
@@ -76,6 +76,39 @@ public class FXMLIngUsuarioController implements Initializable {
     private ObservableList<String> contratosList = FXCollections.observableArrayList();
     private ObservableList<String> empresasList = FXCollections.observableArrayList();
     private ObservableList<String> perfilList = FXCollections.observableArrayList();
+    private ObservableList<String> estadoList = FXCollections.observableArrayList();
+    @FXML
+    private Button btnIngresar;
+    @FXML
+    private Label lblDisponibilidad;
+    @FXML
+    private Label lblTelefonoMedico;
+    @FXML
+    private Label lblTelefonoTrabajador;
+    @FXML
+    private Label lblEstado;
+    @FXML
+    private Label lblRut;
+    @FXML
+    private Label lblContrasena;
+    @FXML
+    private Label lblNombre;
+    @FXML
+    private Label lblPaterno;
+    @FXML
+    private Label lblDireccion;
+    @FXML
+    private Label lblTelefono;
+    @FXML
+    private Label lblEmail;
+    @FXML
+    private Label lblMaterno;
+    @FXML
+    private Label lblCorreoTrabajador;
+    @FXML
+    private Label lblCorreoMedico;
+    @FXML
+    private ComboBox<String> cbEstadoRiesgo;
 
     /**
      * Initializes the controller class.
@@ -84,7 +117,6 @@ public class FXMLIngUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        //BigDecimal telefonoTrabajador = new BigDecimal(txtTrabajadorTelefono.getText());
         cbPerfil.setItems(perfilList);
 
         for (EntPerfilUsuario er : retornarPerfilUsuarios().getEntPerfilUsuario()) {
@@ -100,6 +132,14 @@ public class FXMLIngUsuarioController implements Initializable {
             empresasList.add(er.getIdEmpresa().getValue());
 
         }
+        
+        ObservableList<String> estadoList
+                = FXCollections.observableArrayList(
+                        "Alto",
+                        "Medio",
+                        "Bajo"
+                );
+        cbEstadoRiesgo.setItems(estadoList);
 
     }
 
@@ -112,6 +152,24 @@ public class FXMLIngUsuarioController implements Initializable {
     @FXML
     private void ingresarUsuario(ActionEvent event) throws SQLException {
 
+        //Usuario
+        boolean r = FormValidador.textFieldNoVacio(txtRut, lblRut, "Campo requerido");
+        boolean nombre = FormValidador.textFieldNoVacio(txtNombre, lblNombre, "Campo requerido");
+        boolean contrasena = FormValidador.textFieldNoVacio(txtContrasena, lblContrasena, "Campo requerido");
+        boolean paterno = FormValidador.textFieldNoVacio(txtPaterno, lblPaterno, "Campo requerido");
+        boolean materno = FormValidador.textFieldNoVacio(txtMaterno, lblMaterno, "Campo requerido");
+        boolean direccion = FormValidador.textFieldNoVacio(txtDireccion, lblDireccion, "Campo requerido");
+        boolean telef = FormValidador.textFieldNoVacio(txtTelefono, lblTelefono, "Campo requerido");
+        boolean email = FormValidador.textFieldNoVacio(txtEmail, lblEmail, "Campo requerido");
+
+        //Medico
+        boolean disponibilidad = FormValidador.textFieldNoVacio(txtRut, lblDisponibilidad, "Campo requerido");
+        boolean correoMedico = FormValidador.textFieldNoVacio(txtRut, lblCorreoMedico, "Campo requerido");
+        boolean telefonoMedico = FormValidador.textFieldNoVacio(txtMedicoTelefono, lblTelefonoMedico, "Campo requerido");
+
+        //Trabajador
+        //boolean correoTrabajador = FormValidador.textFieldNoVacio(txtTrabajadorCorreo, lblCorreoTrabajador, "Campo requerido");
+        //boolean telefonoTrabajador = FormValidador.textFieldNoVacio(txtTrabajadorTelefono, lblTelefonoTrabajador, "Campo requerido");
         BigDecimal telefono = new BigDecimal(txtTelefono.getText());
         BigDecimal perfil = new BigDecimal(cbPerfil.getValue());
         BigDecimal empresa = new BigDecimal(cbIdEmpresa.getValue());
@@ -123,22 +181,44 @@ public class FXMLIngUsuarioController implements Initializable {
         switch (perfil2) {
 
             case 5:
-                crearUsuarioMedico(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa, txtDisponibilidad.getText(), txtMedicoCorreo.getText(), telefono);
+                if (r && contrasena && nombre && paterno && materno && direccion && telef && email && disponibilidad && correoMedico && telefonoMedico) {
+
+                    crearUsuarioMedico(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa, txtDisponibilidad.getText(), txtMedicoCorreo.getText(), telefono);
+
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Ingresar usuario");
+                    alert1.setHeaderText("Usuario médico");
+                    alert1.setContentText("El usuario médico ha sido ingresado");
+                    alert1.showAndWait();
+                }
+
                 break;
 
             case 6:
-                //crearUsuarioTrabajador(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa, txtTrabajadorCorreo.getText(), telefonoTrabajador, txtEstado.getText(), contrato);
+                /*
+                if (r && contrasena && nombre && paterno && materno && direccion && telef && email && correoTrabajador && telefonoTrabajador) {
+                    crearUsuarioTrabajador(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa, txtTrabajadorCorreo.getText(), telefonoTrabajador, cbEstadoRiesgo.getValue(), contrato);
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Ingresar usuario");
+                    alert2.setHeaderText("Usuario trabajador");
+                    alert2.setContentText("El usuario trabajador ha sido ingresado");
+                    alert2.showAndWait();
+                } */
+
                 break;
             default:
-                crearUsuario(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa);
+                if (r && contrasena && nombre && paterno && materno && direccion && telef && email) {
+                    crearUsuario(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa);
+
+                    Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
+                    alert3.setTitle("Ingresar usuario");
+                    alert3.setHeaderText("Usuario");
+                    alert3.setContentText("El usuario ha sido ingresado");
+                    alert3.showAndWait();
+                }
                 break;
         }
-
-        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-        alert2.setTitle("Ingresar usuario");
-        alert2.setHeaderText("Usuario");
-        alert2.setContentText("El usuario ha sido ingresado");
-        alert2.showAndWait();
 
         txtRut.clear();
         txtContrasena.clear();
@@ -150,7 +230,6 @@ public class FXMLIngUsuarioController implements Initializable {
         txtEmail.clear();
         txtTrabajadorCorreo.clear();
         txtTrabajadorTelefono.clear();
-        txtEstado.clear();
         txtDisponibilidad.clear();
         txtMedicoCorreo.clear();
         txtMedicoTelefono.clear();

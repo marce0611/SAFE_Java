@@ -16,8 +16,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -26,55 +28,61 @@ import javafx.stage.Stage;
  */
 public class FXMLEliUsuarioController implements Initializable {
 
+
+    @FXML
+    private TextField txtRut;
+    @FXML
+    private Label lblRut;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-    @FXML
-    private TextField txtId;
-
+    }
 
     @FXML
     private Button btnCancelar;
 
-
     @FXML
     void eliminarUsuario(ActionEvent event) throws SQLException {
-        
-    
-    
-    Alert alert = new Alert(AlertType.CONFIRMATION);
-    alert.setTitle("Ventana de confirmación");
-    alert.setHeaderText("Confirmación");
-    alert.setContentText("¿Está seguro que desea eliminar?");
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.get() == ButtonType.OK){
-        
-            
 
+        boolean r = FormValidador.textFieldNoVacio(txtRut, lblRut, "Campo requerido");
 
-            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-            alert2.setTitle("Eliminar usuario");
-            alert2.setHeaderText("Usuario");
-            alert2.setContentText("El usuario ha sido eliminado");
-            alert2.showAndWait();
-            
-            txtId.setText("");
-        } else {
-            alert.close();
+        if (r) {
+            if (FormValidador.validarRut(txtRut.getText())) {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Ventana de confirmación");
+                alert.setHeaderText("Confirmación");
+                alert.setContentText("¿Está seguro que desea eliminar?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    
+                    
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Eliminar usuario");
+                    alert2.setHeaderText("Usuario");
+                    alert2.setContentText("El usuario ha sido eliminado");
+                    alert2.showAndWait();
+
+                    txtRut.setText("");
+                } else {
+                    alert.close();
+                }
+            }else {
+                lblRut.setText("Rut inválido");
+            }
+
         }
-    
 
     }
-    
+
     @FXML
     void cancelar(ActionEvent event) {
         Stage stage2 = (Stage) btnCancelar.getScene().getWindow();
         stage2.close();
     }
-    
+
 }
