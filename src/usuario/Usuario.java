@@ -10,9 +10,9 @@ package usuario;
  * @author Lucy
  */
 public class Usuario {
-    String id, rut_usuario, contrasena, nombre, ape_paterno, ape_materno, direccion, telefono, email, registro, perfil_usuario;
+    String id, rut_usuario, contrasena, nombre, ape_paterno, ape_materno, direccion, telefono, email, registro, estado, perfil_usuario, idEmpresa;
 
-    public Usuario(String id, String rut_usuario, String contrasena, String nombre, String ape_paterno, String ape_materno, String direccion, String telefono, String email, String registro, String perfil_usuario) {
+    public Usuario(String id, String rut_usuario, String contrasena, String nombre, String ape_paterno, String ape_materno, String direccion, String telefono, String email, String registro, String estado, String perfil_usuario, String idEmpresa) {
         this.id = id;
         this.rut_usuario = rut_usuario;
         this.contrasena = contrasena;
@@ -23,7 +23,9 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.registro = registro;
+        this.estado = estado;
         this.perfil_usuario = perfil_usuario;
+        this.idEmpresa = idEmpresa;
     }
 
     public String getId() {
@@ -106,6 +108,14 @@ public class Usuario {
         this.registro = registro;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public String getPerfil_usuario() {
         return perfil_usuario;
     }
@@ -113,6 +123,16 @@ public class Usuario {
     public void setPerfil_usuario(String perfil_usuario) {
         this.perfil_usuario = perfil_usuario;
     }
+
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    
     
     
 }

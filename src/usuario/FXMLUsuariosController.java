@@ -5,7 +5,6 @@
  */
 package usuario;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -59,6 +59,11 @@ public class FXMLUsuariosController implements Initializable {
 
     private ObservableList<Usuario> usuariosList = FXCollections.observableArrayList();
 
+    @FXML
+    private TableColumn<Usuario, String> clEstado;
+    @FXML
+    private TableColumn<Usuario, String> clEmpresa;
+
     /**
      * Initializes the controller class.
      */
@@ -74,7 +79,9 @@ public class FXMLUsuariosController implements Initializable {
                     er.getTelefono().getValue(),
                     er.getEmail().getValue(),
                     er.getFecRegistro().getValue(),
-                    er.getIdPerfil().getValue()));
+                    er.getEstado().getValue(),
+                    er.getIdPerfil().getValue(),
+                    er.getIdEmpresa().getValue()));
 
         }
 
@@ -88,7 +95,9 @@ public class FXMLUsuariosController implements Initializable {
         clTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         clEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         clRegistro.setCellValueFactory(new PropertyValueFactory<>("registro"));
+        clEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         clPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil_usuario"));
+        clEmpresa.setCellValueFactory(new PropertyValueFactory<>("idEmpresa"));
 
         table.setItems(usuariosList);
     }
@@ -169,7 +178,9 @@ public class FXMLUsuariosController implements Initializable {
                     er.getTelefono().getValue(),
                     er.getEmail().getValue(),
                     er.getFecRegistro().getValue(),
-                    er.getIdPerfil().getValue()));
+                    er.getEstado().getValue(),
+                    er.getIdPerfil().getValue(),
+                    er.getIdEmpresa().getValue()));
 
         }
 
@@ -183,7 +194,9 @@ public class FXMLUsuariosController implements Initializable {
         clTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         clEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         clRegistro.setCellValueFactory(new PropertyValueFactory<>("registro"));
+        clEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         clPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil_usuario"));
+        clEmpresa.setCellValueFactory(new PropertyValueFactory<>("idEmpresa"));
 
         table.setItems(usuariosList);
     }

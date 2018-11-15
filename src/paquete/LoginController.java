@@ -38,7 +38,12 @@ public class LoginController implements Initializable {
     @FXML
     private void ingresar(ActionEvent event) {
 
+
         login(txtRut.getText(), txtContrasena.getText());
+            
+        
+        
+      
 
 
         txtRut.clear();

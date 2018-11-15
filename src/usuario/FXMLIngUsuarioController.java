@@ -20,7 +20,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntEmpresa;
 import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
+import org.datacontract.schemas._2004._07.backsafe.EntEmpresa;
 import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
 
 /**
@@ -67,9 +69,9 @@ public class FXMLIngUsuarioController implements Initializable {
     @FXML
     private ComboBox<String> cbContrato;
     @FXML
-    private ComboBox<String> cbEmpresa;
-    @FXML
     private TextField txtContrasena;
+    @FXML
+    private ComboBox<String> cbIdEmpresa;
 
     private ObservableList<String> contratosList = FXCollections.observableArrayList();
     private ObservableList<String> empresasList = FXCollections.observableArrayList();
@@ -82,11 +84,20 @@ public class FXMLIngUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
+        //BigDecimal telefonoTrabajador = new BigDecimal(txtTrabajadorTelefono.getText());
         cbPerfil.setItems(perfilList);
 
         for (EntPerfilUsuario er : retornarPerfilUsuarios().getEntPerfilUsuario()) {
 
             perfilList.add(er.getIdPerfil().getValue());
+
+        }
+
+        cbIdEmpresa.setItems(empresasList);
+
+        for (EntEmpresa er : retornarEmpresas().getEntEmpresa()) {
+
+            empresasList.add(er.getIdEmpresa().getValue());
 
         }
 
@@ -101,29 +112,28 @@ public class FXMLIngUsuarioController implements Initializable {
     @FXML
     private void ingresarUsuario(ActionEvent event) throws SQLException {
 
-        BigDecimal rut = new BigDecimal(txtRut.getText());
         BigDecimal telefono = new BigDecimal(txtTelefono.getText());
         BigDecimal perfil = new BigDecimal(cbPerfil.getValue());
+        BigDecimal empresa = new BigDecimal(cbIdEmpresa.getValue());
 
+        //BigDecimal contrato = new BigDecimal(cbContrato.getValue());
+        //BigDecimal telefonoTrabajador = new BigDecimal(txtTrabajadorTelefono.getText());
+        //BigDecimal telefonoMedico = new BigDecimal(txtMedicoTelefono.getText());
         Integer perfil2 = new Integer(cbPerfil.getValue());
+        switch (perfil2) {
 
-        if (crearUsuario(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
-            System.out.println("Usuario ingresado");
+            case 5:
+                crearUsuarioMedico(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa, txtDisponibilidad.getText(), txtMedicoCorreo.getText(), telefono);
+                break;
+
+            case 6:
+                //crearUsuarioTrabajador(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa, txtTrabajadorCorreo.getText(), telefonoTrabajador, txtEstado.getText(), contrato);
+                break;
+            default:
+                crearUsuario(txtRut.getText(), txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil, empresa);
+                break;
         }
 
-        /*if (perfil2 == 5) {
-            if (crearUsuario(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
-                System.out.println("Usuario medico ingresado");
-            }
-        } else if (perfil2 == 6) {
-            if (crearUsuario(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
-                System.out.println("Usuario trabajadoringresado");
-            }
-
-        } else {
-            
-        }
-         */
         Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
         alert2.setTitle("Ingresar usuario");
         alert2.setHeaderText("Usuario");
@@ -178,19 +188,37 @@ public class FXMLIngUsuarioController implements Initializable {
     private void mostrarEmpresas(ActionEvent event
     ) {
 
-        //cbEmpresa.setItems(empresasList);
-    }
-
-    private static Boolean crearUsuario(java.math.BigDecimal rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil) {
-        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
-        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
-        return port.crearUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil);
+        cbIdEmpresa.setItems(empresasList);
     }
 
     private static ArrayOfEntPerfilUsuario retornarPerfilUsuarios() {
         org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
         return port.retornarPerfilUsuarios();
+    }
+
+    private static ArrayOfEntEmpresa retornarEmpresas() {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.retornarEmpresas();
+    }
+
+    private static Boolean crearUsuario(java.lang.String rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil, java.math.BigDecimal idEmpresa) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.crearUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil, idEmpresa);
+    }
+
+    private static Boolean crearUsuarioMedico(java.lang.String rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil, java.math.BigDecimal idEmpresa, java.lang.String disponibilidad, java.lang.String mailPrivado, java.math.BigDecimal telefonoPriv) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.crearUsuarioMedico(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil, idEmpresa, disponibilidad, mailPrivado, telefonoPriv);
+    }
+
+    private static Boolean crearUsuarioTrabajador(java.lang.String rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil, java.math.BigDecimal idEmpresa, java.lang.String mailPrivado, java.math.BigDecimal telPrivado, java.lang.String estadoRiesgo, java.math.BigDecimal contratoId) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.crearUsuarioTrabajador(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil, idEmpresa, mailPrivado, telPrivado, estadoRiesgo, contratoId);
     }
 
 }
