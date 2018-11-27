@@ -77,25 +77,32 @@ public class FXMLIngEmpresaController implements Initializable {
         if (nombre && rut && direccion && telef && correo) {
 
             if (FormValidador.validarRut(txtRut.getText())) {
-                String r = txtRut.getText().replace(".", "");
-                
-                BigDecimal telefono = new BigDecimal(txtTelefono.getText());
+                if (FormValidador.validarCorreo(txtCorreo.getText())) {
+                    if (FormValidador.validarCorreo(txtCorreo.getText())) {
+                        String r = txtRut.getText().replace(".", "");
 
-                crearEmpresa(txtNombre.getText(), r, txtDireccion.getText(), telefono, txtCorreo.getText());
+                        BigDecimal telefono = new BigDecimal(txtTelefono.getText());
 
-                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                alert2.setTitle("Ingresar empresa");
-                alert2.setHeaderText("Empresa");
-                alert2.setContentText("La empresa ha sido ingresada");
-                alert2.showAndWait();
+                        crearEmpresa(txtNombre.getText(), r, txtDireccion.getText(), telefono, txtCorreo.getText());
 
-                txtNombre.clear();
-                txtRut.clear();
-                txtDireccion.clear();
-                txtTelefono.clear();
-                txtCorreo.clear();
+                        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                        alert2.setTitle("Ingresar empresa");
+                        alert2.setHeaderText("Empresa");
+                        alert2.setContentText("La empresa ha sido ingresada");
+                        alert2.showAndWait();
+
+                        Stage stage2 = (Stage) lblRut.getScene().getWindow();
+                        stage2.close();
+                    } else {
+                        lblCorreo.setText("Ingrese un correo válido.");
+                    }
+
+                } else {
+                    lblCorreo.setText("Ingrese un correo válido.");
+                }
+
             } else {
-                lblRut.setText("Rut inválido");
+                lblRut.setText("Rut inválido.");
             }
         }
 

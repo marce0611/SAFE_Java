@@ -68,6 +68,7 @@ public class FXMLModTipoEvaluacionController implements Initializable {
             alert.setHeaderText("Confirmación");
             alert.setContentText("¿Está seguro que desea modificar?");
             Optional<ButtonType> result = alert.showAndWait();
+
             if (result.get() == ButtonType.OK) {
 
                 BigDecimal id = new BigDecimal(txtId.getText());
@@ -82,8 +83,8 @@ public class FXMLModTipoEvaluacionController implements Initializable {
                 alert2.setContentText("El tipo de evaluacion ha sido modificado");
                 alert2.showAndWait();
 
-                txtId.setText("");
-                txtDescripcion.setText("");
+                Stage stage2 = (Stage) txtDescripcion.getScene().getWindow();
+                stage2.close();
 
             } else {
                 alert.close();

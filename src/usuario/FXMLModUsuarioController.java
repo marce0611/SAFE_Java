@@ -8,19 +8,17 @@ package usuario;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.datacontract.schemas._2004._07.backsafe.ArrayOfEntPerfilUsuario;
-import org.datacontract.schemas._2004._07.backsafe.EntPerfilUsuario;
+import validador.FormValidador;
 
 /**
  * FXML Controller class
@@ -31,8 +29,6 @@ public class FXMLModUsuarioController implements Initializable {
 
     @FXML
     private Button btnCancelar;
-    @FXML
-    private Button btnIngresar;
     @FXML
     private TextField txtTelefono;
     @FXML
@@ -66,15 +62,30 @@ public class FXMLModUsuarioController implements Initializable {
     @FXML
     private TextField txtTrabajadorTelefono;
     @FXML
-    private ComboBox<String> cbContrato;
-    @FXML
-    private ComboBox<String> cbEmpresa;
-    @FXML
     private TextField txtContrasena;
 
-    private ObservableList<String> contratosList = FXCollections.observableArrayList();
-    private ObservableList<String> empresasList = FXCollections.observableArrayList();
-    private ObservableList<String> perfilList = FXCollections.observableArrayList();
+    @FXML
+    private Label lblRut;
+    @FXML
+    private Label lblContrasena;
+    @FXML
+    private Label lblDireccion;
+    @FXML
+    private Label lblNombre;
+    @FXML
+    private Label lblTelefono;
+    @FXML
+    private Label lblEmail;
+    @FXML
+    private Label lblAmaterno;
+    @FXML
+    private Label lblApaterno;
+    @FXML
+    private Button btnIngresar;
+    @FXML
+    private ComboBox<?> cbContrato;
+    @FXML
+    private ComboBox<?> cbEmpresa;
 
     /**
      * Initializes the controller class.
@@ -83,18 +94,16 @@ public class FXMLModUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        //cbContrato.setItems(contratosList);
-        //cbEmpresa.setItems(empresasList);
+        /*cbContrato.setItems(contratosList);
+        cbEmpresa.setItems(empresasList);
         cbPerfil.setItems(perfilList);
-        
-
 
         for (EntPerfilUsuario er : retornarPerfilUsuarios().getEntPerfilUsuario()) {
 
             perfilList.add(er.getIdPerfil().getValue());
 
         }
-
+         */
     }
 
     @FXML
@@ -107,39 +116,47 @@ public class FXMLModUsuarioController implements Initializable {
     @FXML
     private void modificarUsuario(ActionEvent event) {
 
-        BigDecimal rut = new BigDecimal(txtRut.getText());
-        BigDecimal telefono = new BigDecimal(txtTelefono.getText());
-        BigDecimal perfil = new BigDecimal(cbPerfil.getValue());
+        boolean rut = FormValidador.textFieldNoVacio(txtRut, lblRut, "Campo requerido");
+        boolean nombre = FormValidador.textFieldNoVacio(txtNombre, lblNombre, "Campo requerido");
+        boolean contrasena = FormValidador.textFieldNoVacio(txtContrasena, lblContrasena, "Campo requerido");
+        boolean paterno = FormValidador.textFieldNoVacio(txtPaterno, lblApaterno, "Campo requerido");
+        boolean materno = FormValidador.textFieldNoVacio(txtMaterno, lblAmaterno, "Campo requerido");
+        boolean direccion = FormValidador.textFieldNoVacio(txtDireccion, lblDireccion, "Campo requerido");
+        boolean telef = FormValidador.textFieldNoVacio(txtTelefono, lblTelefono, "Campo requerido");
+        boolean email = FormValidador.textFieldNoVacio(txtEmail, lblEmail, "Campo requerido");
 
-        if (modificarUsuario_1(rut, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText(), perfil)) {
-            System.out.println("Usuario modificado");
+        if (rut && nombre && contrasena && paterno && materno && direccion && telef && email) {
+
+            if (FormValidador.validarRut(txtRut.getText())) {
+                if (FormValidador.validarCorreo(txtEmail.getText())) {
+                    String r = txtRut.getText().replace(".", "");
+
+                    BigDecimal telefono = new BigDecimal(txtTelefono.getText());
+
+                    modificarUsuario_1(r, txtContrasena.getText(), txtNombre.getText(), txtPaterno.getText(), txtMaterno.getText(), txtDireccion.getText(), telefono, txtEmail.getText());
+
+                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                    alert2.setTitle("Modifcar usuario");
+                    alert2.setHeaderText("Usuario");
+                    alert2.setContentText("El usuario ha sido modificado");
+                    alert2.showAndWait();
+
+                    Stage stage2 = (Stage) lblRut.getScene().getWindow();
+                    stage2.close();
+                } else {
+                    lblEmail.setText("Ingrese un correo válido.");
+                }
+
+            } else {
+                lblRut.setText("Rut inválido");
+            }
         }
 
-        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-        alert2.setTitle("Modifcar usuario");
-        alert2.setHeaderText("Usuario");
-        alert2.setContentText("El usuario ha sido modificado");
-        alert2.showAndWait();
-
-        txtRut.clear();
-        txtContrasena.clear();
-        txtNombre.clear();
-        txtPaterno.clear();
-        txtMaterno.clear();
-        txtDireccion.clear();
-        txtTelefono.clear();
-        txtEmail.clear();
-        txtTrabajadorCorreo.clear();
-        txtTrabajadorTelefono.clear();
-        txtEstado.clear();
-        txtDisponibilidad.clear();
-        txtMedicoCorreo.clear();
-        txtMedicoTelefono.clear();
     }
 
     @FXML
     private void perfilUsuario(ActionEvent event) {
-        cbPerfil.setItems(perfilList);
+        /*cbPerfil.setItems(perfilList);
 
         Integer perfil = new Integer(cbPerfil.getValue());
 
@@ -152,7 +169,7 @@ public class FXMLModUsuarioController implements Initializable {
         } else {
             pMedico.setDisable(true);
             pTrabajador.setDisable(true);
-        }
+        }*/
     }
 
     @FXML
@@ -163,18 +180,10 @@ public class FXMLModUsuarioController implements Initializable {
     private void mostrarEmpresas(ActionEvent event) {
     }
 
-    private static Boolean modificarUsuario_1(java.math.BigDecimal rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email, java.math.BigDecimal idPerfil) {
+    private static Boolean modificarUsuario_1(java.lang.String rut, java.lang.String contraseña, java.lang.String nombre, java.lang.String appaterno, java.lang.String apmaterno, java.lang.String direccion, java.math.BigDecimal telefono, java.lang.String email) {
         org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
         org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
-        return port.modificarUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email, idPerfil);
+        return port.modificarUsuario(rut, contraseña, nombre, appaterno, apmaterno, direccion, telefono, email);
     }
-
-    private static ArrayOfEntPerfilUsuario retornarPerfilUsuarios() {
-        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
-        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
-        return port.retornarPerfilUsuarios();
-    }
-
-
 
 }

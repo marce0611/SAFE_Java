@@ -76,12 +76,15 @@ public class FXMLEliEmpresaController implements Initializable {
                     alert2.setContentText("La empresa ha sido eliminada");
                     alert2.showAndWait();
 
-                    txtRut.clear();
+                    Stage stage2 = (Stage) lblRut.getScene().getWindow();
+                    stage2.close();
+                    
+                    
 
                 } else {
                     alert.close();
                 }
-            }else {
+            } else {
                 lblRut.setText("Rut inválido");
             }
 

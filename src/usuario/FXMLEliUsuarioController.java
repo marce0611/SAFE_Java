@@ -5,6 +5,7 @@
  */
 package usuario;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -28,7 +29,6 @@ import validador.FormValidador;
  */
 public class FXMLEliUsuarioController implements Initializable {
 
-
     @FXML
     private TextField txtRut;
     @FXML
@@ -40,13 +40,14 @@ public class FXMLEliUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
     }
 
     @FXML
     private Button btnCancelar;
 
     @FXML
-    void eliminarUsuario(ActionEvent event) throws SQLException {
+    void eliminarUsuario(ActionEvent event) {
 
         boolean r = FormValidador.textFieldNoVacio(txtRut, lblRut, "Campo requerido");
 
@@ -58,8 +59,8 @@ public class FXMLEliUsuarioController implements Initializable {
                 alert.setContentText("¿Está seguro que desea eliminar?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    
-                    
+
+                    eliminarUsuario_1(txtRut.getText());
 
                     Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                     alert2.setTitle("Eliminar usuario");
@@ -67,11 +68,12 @@ public class FXMLEliUsuarioController implements Initializable {
                     alert2.setContentText("El usuario ha sido eliminado");
                     alert2.showAndWait();
 
-                    txtRut.setText("");
+                    Stage stage2 = (Stage) lblRut.getScene().getWindow();
+                    stage2.close();
                 } else {
                     alert.close();
                 }
-            }else {
+            } else {
                 lblRut.setText("Rut inválido");
             }
 
@@ -83,6 +85,12 @@ public class FXMLEliUsuarioController implements Initializable {
     void cancelar(ActionEvent event) {
         Stage stage2 = (Stage) btnCancelar.getScene().getWindow();
         stage2.close();
+    }
+
+    private static Boolean eliminarUsuario_1(java.lang.String rut) {
+        org.tempuri.ServicioAppEscritorio service = new org.tempuri.ServicioAppEscritorio();
+        org.tempuri.IServicioAppEscritorio port = service.getBasicHttpBindingIServicioAppEscritorio();
+        return port.eliminarUsuario(rut);
     }
 
 }

@@ -63,7 +63,8 @@ public class FXMLIngTipoEvaluacionController implements Initializable {
             alert2.setContentText("El tipo de evaluacion ha sido ingresado");
             alert2.showAndWait();
 
-            txtDescripcion.clear();
+            Stage stage2 = (Stage) txtDescripcion.getScene().getWindow();
+            stage2.close();
 
         }
 

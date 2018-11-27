@@ -83,38 +83,43 @@ public class FXMLModEmpresaController implements Initializable {
 
         if (id1 && nombre && rut && direccion && telef && correo) {
             if (FormValidador.validarRut(txtRut.getText())) {
-                String r = txtRut.getText().replace(".", "");
-                
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Ventana de confirmación");
-                alert.setHeaderText("Confirmación");
-                alert.setContentText("¿Está seguro que desea modificar?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
+                if (FormValidador.validarCorreo(txtCorreo.getText())) {
+                    if (FormValidador.validarCorreo(txtCorreo.getText())) {
+                        String r = txtRut.getText().replace(".", "");
 
-                    BigDecimal id = new BigDecimal(txtId.getText());
-                    BigDecimal telefono = new BigDecimal(txtTelefono.getText());
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Ventana de confirmación");
+                        alert.setHeaderText("Confirmación");
+                        alert.setContentText("¿Está seguro que desea modificar?");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK) {
 
-                    modificarEmpresa_1(id, txtNombre.getText(), r, txtDireccion.getText(), telefono, txtCorreo.getText());
+                            BigDecimal id = new BigDecimal(txtId.getText());
+                            BigDecimal telefono = new BigDecimal(txtTelefono.getText());
 
-                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                    alert2.setTitle("Modificar empresa");
-                    alert2.setHeaderText("Empresa");
-                    alert2.setContentText("La empresa ha sido modificada");
-                    alert2.showAndWait();
+                            modificarEmpresa_1(id, txtNombre.getText(), r, txtDireccion.getText(), telefono, txtCorreo.getText());
 
-                    txtId.clear();
-                    txtNombre.clear();
-                    txtRut.clear();
-                    txtDireccion.clear();
-                    txtTelefono.clear();
-                    txtCorreo.clear();
+                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                            alert2.setTitle("Modificar empresa");
+                            alert2.setHeaderText("Empresa");
+                            alert2.setContentText("La empresa ha sido modificada");
+                            alert2.showAndWait();
+
+                        } else {
+                            alert.close();
+                        }
+
+                        Stage stage2 = (Stage) lblRut.getScene().getWindow();
+                        stage2.close();
+                    } else {
+                        lblCorreo.setText("Ingrese un correo válido.");
+                    }
 
                 } else {
-                    alert.close();
+                    lblCorreo.setText("Ingrese un correo válido.");
                 }
 
-            }else {
+            } else {
                 lblRut.setText("Rut inválido");
             }
 

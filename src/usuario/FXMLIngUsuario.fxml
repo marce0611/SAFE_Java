@@ -23,8 +23,8 @@
                </font>
             </Label>
             <Label layoutX="723.0" layoutY="28.0" text="Bienvenido, administrador" textFill="WHITE" />
-            <Button fx:id="btnCancelar" layoutX="693.0" layoutY="583.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
-            <Button fx:id="btnIngresar" layoutX="774.0" layoutY="583.0" mnemonicParsing="false" onAction="#ingresarUsuario" text="Ingresar Usuario" />
+            <Button fx:id="btnCancelar" layoutX="692.0" layoutY="596.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button fx:id="btnIngresar" layoutX="774.0" layoutY="596.0" mnemonicParsing="false" onAction="#ingresarUsuario" text="Ingresar Usuario" />
             <ImageView fitHeight="75.0" fitWidth="200.0" layoutX="14.0" layoutY="19.0">
                <image>
                   <Image url="/img/logo.png" />
@@ -62,7 +62,7 @@
                   <Label fx:id="lblTelefonoMedico" layoutX="120.0" layoutY="125.0" textFill="RED" />
                </children>
             </Pane>
-            <Pane fx:id="pTrabajador" disable="true" layoutX="364.0" layoutY="423.0" prefHeight="191.0" prefWidth="307.0">
+            <Pane fx:id="pTrabajador" disable="true" layoutX="364.0" layoutY="423.0" prefHeight="169.0" prefWidth="307.0">
                <children>
                   <Label layoutX="14.0" layoutY="93.0" text="Estado riesgo:" />
                   <TextField fx:id="txtTrabajadorCorreo" layoutX="118.0" layoutY="14.0" prefHeight="25.0" prefWidth="160.0" />
@@ -75,6 +75,7 @@
                   <Label fx:id="lblTelefonoTrabajador" layoutX="119.0" layoutY="72.0" textFill="RED" />
                   <Label fx:id="lblEstado" layoutX="119.0" layoutY="117.0" textFill="RED" />
                   <ComboBox fx:id="cbEstadoRiesgo" layoutX="118.0" layoutY="89.0" prefHeight="25.0" prefWidth="160.0" promptText="Seleccione estado riesgo" />
+                  <Label layoutX="283.0" layoutY="94.0" text="(A = Alto / M = Medio / B = Bajo)" />
                </children>
             </Pane>
             <TextField fx:id="txtContrasena" layoutX="474.0" layoutY="214.0" prefHeight="25.0" prefWidth="160.0" />
