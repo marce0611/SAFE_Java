@@ -31,5 +31,6 @@
       <Label layoutX="328.0" layoutY="318.0" text="Contraseña:" />
       <TextField fx:id="txtRut" layoutX="411.0" layoutY="241.0" />
       <TextField fx:id="txtContrasena" layoutX="411.0" layoutY="314.0" />
+      <Label fx:id="lblError" layoutX="356.0" layoutY="375.0" textFill="RED" />
     </children>
 </AnchorPane>
