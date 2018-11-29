@@ -69,13 +69,9 @@ public class LoginController implements Initializable {
                     Stage stage2 = (Stage) txtRut.getScene().getWindow();
                     stage2.close();
                 } else {
+                    lblError.setText("Solo administradores pueden entrar, intente nuevamente.");
                     txtRut.clear();
                     txtContrasena.clear();
-                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                    alert2.setTitle("Error al ingresar");
-                    alert2.setHeaderText("Solo administradores pueden entrar");
-                    alert2.setContentText("Intente nuevamente");
-                    alert2.showAndWait();
                 }
             } else {
 
